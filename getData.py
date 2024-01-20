@@ -53,12 +53,10 @@ def getDF(url):
     return df
 
 def getPER(df):
-    current_year_column = df[df['Season'] == '2023-24'].index[0]
-    return float(df['PER'][current_year_column])
+    return float(df.iloc[-2]['PER'])
 
 def getDRtg(df):
-    current_year_column = df[df['Season'] == '2023-24'].index[0]
-    return float(df['DRtg'][current_year_column])
+    return float(df.iloc[-2]['DRtg'])
 
 def pred_score(pers, drtg):
     # league avg PER is set to 15. league avg team ppg is 115.5 in 2023-2024
