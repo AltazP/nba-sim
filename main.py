@@ -30,6 +30,7 @@ for t in range(1,3):
 # Bottom goes back and forth
 p = 1
 while p < 6:
+    url.clear
     p1 = input(f"(Team 1) Player {p}: ")
     print("Getting Data..")
     url = find_url(p1)
@@ -37,14 +38,17 @@ while p < 6:
         print ("Player not found  (player must be current and capitalized correctly). Try again.")
         continue
     t1_urls.append(url[0])
-    p1 = input(f"(Team 2) Player {p}: ")
-    print("Getting Data..")
-    url = find_url(p1)
-    if len(url) == 0:
-        print ("Player not found  (player must be current and capitalized correctly). Try again.")
-        continue
-    t2_urls.append(url[0])
-    p += 1
+    while True:
+        url.clear
+        p2 = input(f"(Team 2) Player {p}: ")
+        print("Getting Data..")
+        url = find_url(p2)
+        if len(url) == 0:
+            print ("Player not found  (player must be current and capitalized correctly). Try again.")
+        else:
+            t2_urls.append(url[0])
+            p += 1
+            break
 
 print("\nAll Players Found!")
 cont()
