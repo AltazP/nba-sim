@@ -1,18 +1,16 @@
 from cont import cont
 from getData import *
 from random import random
+import os
 
-'''
-url = find_url("Joel Embiid")[0]
-dataFrame = getDF(url)
-current_year_column = dataFrame[dataFrame['Season'] == '2023-24'].index[0]
-print(dataFrame)
-'''
+os.system('clear')
 print("Welcome to Altaz's NBA Game Simulator")
 print("You will have to pick 5 current players for each team.")
 cont()
 t1_urls = []
 t2_urls = []
+
+'''
 for t in range(1,3):
     p = 1
     while p < 6:
@@ -27,6 +25,27 @@ for t in range(1,3):
                 t1_urls.append(url[0])
             else:
                 t2_urls.append(url[0])
+'''
+# Top one gets all players for first team then all players for second
+# Bottom goes back and forth
+p = 1
+while p < 6:
+    p1 = input(f"(Team 1) Player {p}: ")
+    print("Getting Data..")
+    url = find_url(p1)
+    if len(url) == 0:
+        print ("Player not found  (player must be current and capitalized correctly). Try again.")
+        continue
+    t1_urls.append(url[0])
+    p1 = input(f"(Team 2) Player {p}: ")
+    print("Getting Data..")
+    url = find_url(p1)
+    if len(url) == 0:
+        print ("Player not found  (player must be current and capitalized correctly). Try again.")
+        continue
+    t2_urls.append(url[0])
+    p += 1
+
 print("\nAll Players Found!")
 cont()
 t1_avg_per = 0
