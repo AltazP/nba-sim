@@ -1,12 +1,6 @@
-import pandas as pd
-from bs4 import BeautifulSoup
-from geturl import find_url
 from cont import cont
 from getData import *
-import numpy as np
-import requests
-import os
-import sys
+from random import random
 
 '''
 url = find_url("Joel Embiid")[0]
@@ -51,3 +45,26 @@ t1_avg_per /= 5
 t1_defense /= 5
 t2_avg_per /= 5
 t2_defense /= 5
+
+t1_score = int(round(pred_score(t1_avg_per, t2_defense)))
+t2_score = int(round(pred_score(t2_avg_per, t1_defense)))
+
+winner = 0
+if t1_score > t2_score:
+    winner = 1
+elif t2_score > t1_score:
+    winner = 2
+else:
+    tiebreaker = random()
+    if tiebreaker == 0:
+        t1_score += 1
+        winner = 1
+    else:
+        t2_score += 1
+        winner = 2
+print ('Final Score')
+print('-------------')
+print(f'Team 1: {t1_score}')
+print(f'Team 2: {t2_score}')
+print('-------------')
+print(f'\nTEAM {winner} WINS!')
