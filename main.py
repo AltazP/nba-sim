@@ -7,6 +7,14 @@ url = find_url("Stephen Curry")
 
 player_text = requests.get(url[0]).text
 soup = BeautifulSoup(player_text, 'lxml')
-charts = soup.find_all('table', class_ = 'tablesaw compact tablesaw-swipe tablesaw-sortable')
+charts = soup.find_all('table')
 
-print(charts)
+adv_num = 0
+for i in range (0, len(charts)):
+    adv = charts[i].find('tr', class_ = 'advanced_stats')
+    if adv is None:
+        continue
+    else:
+        adv_num = i
+        break
+print(charts[adv_num])
