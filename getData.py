@@ -7,7 +7,7 @@ import os
 import sys
 
 def getDF(url):
-    player_text = requests.get(url[0]).text
+    player_text = requests.get(url).text
     soup = BeautifulSoup(player_text, 'lxml')
     charts = soup.find_all('table')
 
@@ -51,3 +51,22 @@ def getDF(url):
     # DataFrame 
     df = pd.DataFrame(data = data, columns = list_header).drop('\n',axis=1)
     return df
+
+def getPER(df):
+    current_year_column = df[df['Season'] == '2023-24'].index[0]
+    return df['PER'][current_year_column]
+
+def getDRtg(df):
+    current_year_column = df[df['Season'] == '2023-24'].index[0]
+    return df['DRtg'][current_year_column]
+
+def pred_score(pers, drtg):
+    # league avg PER is set to 15. league avg team ppg is 115.5 in 2023-2024
+    # multiply the average by 48 (Assuming starters play the whole game)
+    # divide by 6.234 so that 5 league avg players would score league avg 115.5 pts
+    avg = pers * 48
+    avg = avg / 6.234
+    # score is average between adjusted PER and Def Rating of the opponent
+    # def rating adjusted for avg 99.3 possessions per game
+    avg = (avg + drtg * 0.993 )/2
+    return avg
