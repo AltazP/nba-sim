@@ -28,7 +28,9 @@ for t in range(1,3):
 '''
 # Top one gets all players for first team then all players for second
 # Bottom goes back and forth
+
 p = 1
+url = []
 while p < 6:
     url.clear
     p1 = input(f"(Team 1) Player {p}: ")
